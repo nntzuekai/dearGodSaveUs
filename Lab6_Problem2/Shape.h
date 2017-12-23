@@ -23,9 +23,9 @@ public:
 	Shape(const Shape& toBeCopied);
 	//other intializing constructors
 	Shape( unsigned int xLocationValue, unsigned int yLocationValue,
-	       unsigned int dimension1Value, Colour blockColourValue, unsigned int ifDebug=0);
+	       unsigned int dimension1Value, Colour blockColourValue, unsigned int ifDebug=0);///TODO ifDebug
 	Shape( unsigned int xLocationValue, unsigned int yLocationValue,
-	       Colour blockColourValue, unsigned int ifDebug=0);
+	       Colour blockColourValue, unsigned int ifDebug=0);///TODO
 	//destructor: define when class has deep memory or static counters
 	virtual ~Shape();///problem?
 
@@ -93,7 +93,7 @@ protected:
 	unsigned int yLocation;
 	Colour shapeColour;
 
-	unsigned int ifDebug=0;
+	static unsigned int ifDebug;///TODO
 };
 
 

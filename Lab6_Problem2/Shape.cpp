@@ -10,6 +10,7 @@ using namespace std;
 
 unsigned int Shape::shapesCreated=0;
 unsigned int Shape::shapesExisting=0;
+unsigned int Shape::ifDebug=0;
 
 Shape::Shape():
     dimension1(100),
