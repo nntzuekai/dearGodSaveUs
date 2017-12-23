@@ -1,1 +1,3 @@
 # dearGodSaveUs
+# THIS IS OF OUR FABULOUS OOP HOMEWORK
+# INSTRUCTOR: Janice Regan
