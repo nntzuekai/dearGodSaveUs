@@ -49,8 +49,12 @@ void Frame::Display(BMP &myImageValue, string theOutputFile) const
 
 bool Frame::AppendShape(Shape *newShape)
 {
+	if(newShape==nullptr){
+		return false;
+	}
+
 	try{
-		shapesInPicture.push_back(newShape);
+		shapesInPicture.push_back(newShape);///TODO deep copy?
 	}catch(bad_alloc){
 		return false;
 	}
@@ -71,21 +75,25 @@ unsigned int Frame::FindShape(const Shape &shape) const
 
 bool Frame::InsertShape(unsigned int insertAtIndex, Shape *newShape)
 {
+	if(newShape==nullptr){
+		return false;
+	}
+
 	auto p=shapesInPicture.begin();
-	try{
-		while (insertAtIndex--) {
-			++p;
+	auto end=shapesInPicture.end();
+
+	while (insertAtIndex--) {
+		if(++p==end){
+			return false;
 		}
-	}catch(...){
-		return false;
 	}
 
-	if(*p!=newShape){
+	if(!(**p==*newShape)){
 		return false;
 	}
 
 	try{
-		shapesInPicture.insert(p,newShape);
+		shapesInPicture.insert(p,newShape);///TODO deep copy?
 	}catch(bad_alloc){
 		return false;
 	}
@@ -94,16 +102,20 @@ bool Frame::InsertShape(unsigned int insertAtIndex, Shape *newShape)
 
 bool Frame::RemoveShape(unsigned int deleteAtIndex, Shape *shapeToRemove)
 {
-	auto p=shapesInPicture.begin();
-	try{
-		while (deleteAtIndex--) {
-			++p;
-		}
-	}catch(...){
+	if(shapeToRemove==nullptr){
 		return false;
 	}
 
-	if(*p!=shapeToRemove){
+	auto p=shapesInPicture.begin();
+	auto end=shapesInPicture.end();
+
+	while (deleteAtIndex--) {
+		if(++p==end){
+			return false;
+		}
+	}
+
+	if(!(**p==*shapeToRemove)){
 		return false;
 	}
 
@@ -111,9 +123,11 @@ bool Frame::RemoveShape(unsigned int deleteAtIndex, Shape *shapeToRemove)
 	return true;
 }
 
-bool Frame::RemoveLastShape(Shape *shapeToRemove)
+bool Frame::RemoveLastShape()
 {
-	(void)shapeToRemove;
-	cerr<<"What the hell!"<<endl;///TODO
+	if(shapesInPicture.empty()){
+		return false;
+	}
+	shapesInPicture.pop_back();
 	return true;
 }

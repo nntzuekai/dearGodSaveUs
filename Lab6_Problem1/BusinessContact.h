@@ -29,8 +29,8 @@ public:
 	virtual bool operator == (const Contact& rightContact) const override;
 	friend ostream &operator <<
 	(ostream& os, const BusinessContact& oneBusinessContact);
-	void Print() const;
-	Contact *CopyObject() const;
+	void Print() const override;
+	Contact *CopyObject() const override;
 
 private:
 	string company;

@@ -23,7 +23,7 @@ public:
 	unsigned int FindShape(const Shape &shape) const;
 	bool InsertShape( unsigned int insertAtIndex, Shape *newShape);
 	bool RemoveShape ( unsigned int deleteAtIndex, Shape *shapeToRemove);
-	bool RemoveLastShape (Shape *shapeToRemove);
+	bool RemoveLastShape ();
 
 private:
 	list <Shape *> shapesInPicture;

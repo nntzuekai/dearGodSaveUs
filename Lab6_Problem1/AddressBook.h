@@ -34,7 +34,6 @@ public:
 
 	bool RemoveContact(const Contact &contact);
 
-
 	~AddressBook();
 
 private:

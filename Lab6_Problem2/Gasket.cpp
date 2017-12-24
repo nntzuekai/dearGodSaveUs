@@ -33,9 +33,14 @@ Gasket::Gasket(unsigned int iterations, unsigned int xLocationValue, unsigned in
     Shape(xLocationValue,yLocationValue,sideLengthValue,gasketColourValue),
     iterations(iterations)
 {
-	CheckOffPage(name);
-	CheckXPartOffPage(name);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name);
+		CheckXPartOffPage(name);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Gasket Constructor 5 arguments"<<endl;
+		throw;
+	}
 
 	lenSubTriList=static_cast<unsigned int>(pow(3,iterations));//len = 3^ iterations
 	listOfSubTriangles=new Triangle[lenSubTriList]{{xLocation, yLocation, sideLength, gasketColour}};
@@ -123,8 +128,13 @@ void Gasket::SetXLocation(const unsigned int xLocationValue)
 
 	xLocation=xLocationValue;
 
-	CheckOffPage(name);
-	CheckXPartOffPage(name);
+	try{
+		CheckOffPage(name);
+		CheckXPartOffPage(name);
+	}catch(...){
+		cerr<<"Called from Gasket SetXLocation"<<endl;
+		throw;
+	}
 
 	if(s0!=sideLength){//sideLength changed, regeneration is needed
 		listOfSubTriangles[0]={xLocation, yLocation, sideLength, gasketColour};
@@ -166,8 +176,13 @@ void Gasket::SetYLocation(const unsigned int yLocationValue)
 
 	yLocation=yLocationValue;
 
-	CheckOffPage(name);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Gasket SetYLocation"<<endl;
+		throw;
+	}
 
 	if(s0!=sideLength){
 		listOfSubTriangles[0]={xLocation, yLocation, sideLength, gasketColour};
@@ -204,8 +219,13 @@ void Gasket::SetSideLength(const unsigned int sideLengthValue)
 
 	sideLength=sideLengthValue;
 
-	CheckXPartOffPage(name);
-	CheckYPartOffPage();
+	try{
+		CheckXPartOffPage(name);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Gasket SetSideLength"<<endl;
+		throw;
+	}
 
 	listOfSubTriangles[0]={xLocation, yLocation, sideLength, gasketColour};
 	if(lenSubTriList > 1) {
@@ -399,6 +419,8 @@ void Gasket::CheckYPartOffPage()
 	if(yLocation+sideLength*sin60>pageLength){
 		switch (ifDebug) {
 			case 2:{
+				cerr<<"Thrown in CheckXPartOffPage"<<endl;
+
 				unsigned int h0=GetHeight();
 				unsigned int s0=sideLength;
 				sideLength=static_cast<unsigned int>((pageLength-yLocation)/sin60);

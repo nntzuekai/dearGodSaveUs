@@ -26,30 +26,27 @@ Shape::Shape(const Shape &toBeCopied):
     dimension1(toBeCopied.dimension1),
     xLocation(toBeCopied.xLocation),
     yLocation(toBeCopied.yLocation),
-    shapeColour(toBeCopied.shapeColour),
-    ifDebug(toBeCopied.ifDebug)
+    shapeColour(toBeCopied.shapeColour)
 {
 	++shapesCreated;
 	++shapesExisting;
 }
 
-Shape::Shape(unsigned int xLocationValue, unsigned int yLocationValue, unsigned int dimension1Value, Colour blockColourValue, unsigned int ifDebug):
+Shape::Shape(unsigned int xLocationValue, unsigned int yLocationValue, unsigned int dimension1Value, Colour blockColourValue):
     dimension1(dimension1Value),
     xLocation(xLocationValue),
     yLocation(yLocationValue),
-    shapeColour(blockColourValue),
-    ifDebug(ifDebug)
+    shapeColour(blockColourValue)
 {
 	++shapesCreated;
 	++shapesExisting;
 }
 
-Shape::Shape(unsigned int xLocationValue, unsigned int yLocationValue, Colour blockColourValue, unsigned int ifDebug):
+Shape::Shape(unsigned int xLocationValue, unsigned int yLocationValue, Colour blockColourValue):
     dimension1(100),
     xLocation(xLocationValue),
     yLocation(yLocationValue),
-    shapeColour(blockColourValue),
-    ifDebug(ifDebug)
+    shapeColour(blockColourValue)
 {
 	++shapesCreated;
 	++shapesExisting;
@@ -158,6 +155,7 @@ void Shape::CheckOffPage(string objectTypeName)
 	if (xLocation > pageWidth || yLocation > pageLength) {
 		switch (ifDebug) {
 			case 2:{
+				cerr<<"Thrown in CheckOffPage"<<endl;
 				throw ShapeOffPageException(xLocation, yLocation);
 				break;
 			}
@@ -187,6 +185,7 @@ void Shape::CheckXPartOffPage(string objectTypeName)
 	if(xLocation+dimension1>pageWidth){
 		switch (ifDebug) {
 			case 2:{
+				cerr<<"Thrown in CheckXPartOffPage"<<endl;
 				throw ShapeXPartOffPageException(xLocation,yLocation,dimension1,pageWidth-xLocation);
 				break;
 			}
@@ -207,4 +206,14 @@ void Shape::CheckXPartOffPage(string objectTypeName)
 		}
 
 	}
+}
+
+unsigned int Shape::getIfDebug()
+{
+	return ifDebug;
+}
+
+void Shape::setIfDebug(unsigned int value)
+{
+	ifDebug = value;
 }

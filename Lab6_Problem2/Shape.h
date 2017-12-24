@@ -23,9 +23,9 @@ public:
 	Shape(const Shape& toBeCopied);
 	//other intializing constructors
 	Shape( unsigned int xLocationValue, unsigned int yLocationValue,
-	       unsigned int dimension1Value, Colour blockColourValue, unsigned int ifDebug=0);///TODO ifDebug
+	       unsigned int dimension1Value, Colour blockColourValue);///TODO ifDebug
 	Shape( unsigned int xLocationValue, unsigned int yLocationValue,
-	       Colour blockColourValue, unsigned int ifDebug=0);///TODO
+	       Colour blockColourValue);///TODO
 	//destructor: define when class has deep memory or static counters
 	virtual ~Shape();///problem?
 
@@ -78,6 +78,9 @@ public:
 	virtual bool operator > (Shape& shape2)const=0;
 	virtual bool operator < (Shape& shape2) const=0;
 	
+	static unsigned int getIfDebug();
+	static void setIfDebug(unsigned int value);
+
 protected:
 	void CheckOffPage(string objectTypeName);
 	void CheckXPartOffPage(string objectTypeName);

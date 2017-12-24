@@ -36,9 +36,14 @@ Triangle::Triangle(unsigned int xLocationValue, unsigned int yLocationValue, uns
 	++trianglesCreated;
 	++trianglesExisting;
 
-	CheckOffPage(name_triangle);
-	CheckXPartOffPage(name_triangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_triangle);
+		CheckXPartOffPage(name_triangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Triangle Constructor 4 arguments"<<endl;
+		throw;
+	}
 }
 
 Triangle::Triangle(unsigned int xLocationValue, unsigned int yLocationValue, Colour blockColourValue):
@@ -47,9 +52,14 @@ Triangle::Triangle(unsigned int xLocationValue, unsigned int yLocationValue, Col
 	++trianglesCreated;
 	++trianglesExisting;
 
-	CheckOffPage(name_triangle);
-	CheckXPartOffPage(name_triangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_triangle);
+		CheckXPartOffPage(name_triangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Triangle Constructor 3 arguments"<<endl;
+		throw;
+	}
 }
 
 Triangle::Triangle(const Triangle &toBeCopied):
@@ -90,8 +100,14 @@ unsigned int Triangle::GetHeight() const
 void Triangle::SetSideLength(const unsigned int setSideLengthValue)
 {
 	sideLength=setSideLengthValue;
-	CheckXPartOffPage(name_triangle);
-	CheckYPartOffPage();
+
+	try{
+		CheckXPartOffPage(name_triangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Triangle SetSideLength"<<endl;
+		throw;
+	}
 }
 
 /*
@@ -105,15 +121,25 @@ void Triangle::SetDimension1(const unsigned int setSideLengthValue)
 void Triangle::SetXLocation(const unsigned int xLocationValue)
 {
 	xLocation=xLocationValue;
-	CheckOffPage(name_triangle);
-	CheckXPartOffPage(name_triangle);
+	try{
+		CheckOffPage(name_triangle);
+		CheckXPartOffPage(name_triangle);
+	}catch(...){
+		cerr<<"Called from Triangle SetXLocation"<<endl;
+		throw;
+	}
 }
 
 void Triangle::SetYLocation(const unsigned int yLocationValue)
 {
 	yLocation=yLocationValue;
-	CheckOffPage(name_triangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_triangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Triangle SetYLocation"<<endl;
+		throw;
+	}
 }
 
 void Triangle::SetTrianglesCreated(unsigned int numberCreated)
@@ -306,6 +332,8 @@ void Triangle::CheckYPartOffPage()
 	if(yLocation + sideLength*sin60 > pageLength){
 		switch (ifDebug) {
 			case 2:{
+				cerr<<"Thrown in CheckXPartOffPage"<<endl;
+
 				unsigned int h0=GetHeight();
 				unsigned int s0=sideLength;
 				sideLength=static_cast<unsigned int>((pageLength-yLocation)/sin60);

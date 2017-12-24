@@ -32,9 +32,14 @@ Rectangle::Rectangle(unsigned int xLocationValue, unsigned int yLocationValue, u
 	++rectanglesCreated;
 	++rectanglesExisting;
 
-	CheckOffPage(name_rectangle);
-	CheckXPartOffPage(name_rectangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_rectangle);
+		CheckXPartOffPage(name_rectangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Rectangle Constructor 5 arguments"<<endl;
+		throw;
+	}
 }
 
 Rectangle::Rectangle(unsigned int xLocationValue, unsigned int yLocationValue, Colour blockColourValue):
@@ -44,9 +49,14 @@ Rectangle::Rectangle(unsigned int xLocationValue, unsigned int yLocationValue, C
 	++rectanglesCreated;
 	++rectanglesExisting;
 
-	CheckOffPage(name_rectangle);
-	CheckXPartOffPage(name_rectangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_rectangle);
+		CheckXPartOffPage(name_rectangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Rectangle Constructor 3 arguments"<<endl;
+		throw;
+	}
 }
 
 Rectangle::Rectangle(const Rectangle &toBeCopied):
@@ -96,8 +106,13 @@ unsigned int Rectangle::GetRectanglesExisting()
 void Rectangle::SetXLocation(const unsigned int xLocationValue)
 {
 	xLocation=xLocationValue;
-	CheckOffPage(name_rectangle);
-	CheckXPartOffPage(name_rectangle);
+	try{
+		CheckOffPage(name_rectangle);
+		CheckXPartOffPage(name_rectangle);
+	}catch(...){
+		cerr<<"Called from Rectangle SetXLocation"<<endl;
+		throw;
+	}
 }
 
 void Rectangle::SetDimension1(const unsigned int widthValue)
@@ -108,20 +123,35 @@ void Rectangle::SetDimension1(const unsigned int widthValue)
 void Rectangle::SetYLocation(const unsigned int yLocationValue)
 {
 	yLocation=yLocationValue;
-	CheckOffPage(name_rectangle);
-	CheckYPartOffPage();
+	try{
+		CheckOffPage(name_rectangle);
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Rectangle SetYLocation"<<endl;
+		throw;
+	}
 }
 
 void Rectangle::SetWidth(const unsigned int widthValue)
 {
 	width=widthValue;
-	CheckXPartOffPage(name_rectangle);
+	try{
+		CheckXPartOffPage(name_rectangle);
+	}catch(...){
+		cerr<<"Called from Rectangle SetWidth"<<endl;
+		throw;
+	}
 }
 
 void Rectangle::SetHeight(const unsigned int heightValue)
 {
 	height=heightValue;
-	CheckYPartOffPage();
+	try{
+		CheckYPartOffPage();
+	}catch(...){
+		cerr<<"Called from Rectangle SetHeight"<<endl;
+		throw;
+	}
 }
 
 void Rectangle::SetRectanglesCreated(unsigned int numberCreated)
@@ -292,6 +322,7 @@ void Rectangle::CheckYPartOffPage()
 	if(yLocation+height>pageLength){
 		switch (ifDebug) {
 			case 2:{
+				cerr<<"Thrown in CheckXPartOffPage"<<endl;
 				throw ShapeYPartOffPageException(xLocation, yLocation, dimension1, dimension1, height, pageLength-yLocation);
 				break;
 			}
