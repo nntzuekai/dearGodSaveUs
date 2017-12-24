@@ -7,15 +7,21 @@ Frame::Frame(const Frame &frameToCopy)try:
 {
 	auto p1=shapesInPicture.begin();
 	auto p2=frameToCopy.shapesInPicture.begin();
-	for(;
-	    p1!=shapesInPicture.end() && p2!=frameToCopy.shapesInPicture.end();
-	    p1++,p2++){
-		*p1=(*p2)->clone();
+
+	try{
+		for(;
+		    p1!=shapesInPicture.end() && p2!=frameToCopy.shapesInPicture.end();
+		    p1++,p2++){
+			*p1=(*p2)->clone();
+		}
+	}catch(bad_alloc){
+		for(auto p:shapesInPicture){
+			delete p;
+		}
+		throw;
 	}
+
 }catch(bad_alloc){
-	for(auto p:shapesInPicture){
-		delete p;
-	}
 	cerr<<"Unable to create Frame"<<'\n';
 	cerr<<"Memory allocation failed"<<endl;
 }
@@ -107,6 +113,7 @@ bool Frame::RemoveShape(unsigned int deleteAtIndex, Shape *shapeToRemove)
 
 bool Frame::RemoveLastShape(Shape *shapeToRemove)
 {
+	(void)shapeToRemove;
 	cerr<<"What the hell!"<<endl;///TODO
 	return true;
 }
