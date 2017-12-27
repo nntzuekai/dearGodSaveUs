@@ -20,10 +20,13 @@ public:
 	AddressBook(const AddressBook& toCopy);
 
 	void SetMaxNumberContacts(size_type maxNumberContactsValue);
+	size_type GetMaxNumberContacts() const;
+	size_type GetActualNumberContacts() const;
+
 	AddressBook &operator =(const AddressBook &toCopy);
 	bool operator ==(const AddressBook &right) const;
-
-	void Print()const;
+	void print()const;
+	friend ostream &operator<< (ostream &os, const AddressBook &addressbook);
 
 	size_type FindNextContact(const Contact &contact)const;
 	size_type FindNextContact(Contact &&contact)const;
@@ -33,14 +36,17 @@ public:
 	bool InsertContact(const Contact &contact, size_type insertAtIndex);
 
 	bool RemoveContact(const Contact &contact);
+	bool RemoveContact(const Contact *pcontact);
 
-	~AddressBook();
+	~AddressBook()=default;
 
 private:
 	bool ExtendArray(size_type newSize);
 	bool ShrinkArray(size_type newSize);
 
 	vector<shared_ptr<Contact>> array;
+public:
+	auto GetAddressBookPointer() const -> decltype (array.data());
 };
 
 

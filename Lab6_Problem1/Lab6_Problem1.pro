@@ -3,12 +3,13 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp \
+SOURCES += \
     AddressBook.cpp \
     BusinessContact.cpp \
     Contact.cpp \
     FamilyMember.cpp \
-    Friend.cpp
+    Friend.cpp \
+    main1.cpp
 
 HEADERS += \
     AddressBook.h \

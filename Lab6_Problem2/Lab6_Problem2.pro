@@ -9,11 +9,11 @@ SOURCES += \
     EasyBMP.cpp \
     Gasket.cpp \
     Rectangle.cpp \
-    rectangleTestNew.cpp \
     Shape.cpp \
     Triangle.cpp \
     ShapeException.cpp \
-    Frame.cpp
+    Frame.cpp \
+    rectangleTestNew.cpp
 
 HEADERS += \
     Colour.h \

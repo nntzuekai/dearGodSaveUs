@@ -79,6 +79,16 @@ void AddressBook::SetMaxNumberContacts(size_type maxNumberContactsValue)
 	}
 }
 
+AddressBook::size_type AddressBook::GetMaxNumberContacts() const
+{
+	return array.capacity();
+}
+
+AddressBook::size_type AddressBook::GetActualNumberContacts() const
+{
+	return array.size();
+}
+
 AddressBook &AddressBook::operator =(const AddressBook &toCopy) try{
 	array_type array_t(toCopy.array.size());
 	array_t.reserve(toCopy.array.capacity());
@@ -114,7 +124,12 @@ bool AddressBook::operator ==(const AddressBook &right) const
 	return true;
 }
 
-void AddressBook::Print() const
+auto AddressBook::GetAddressBookPointer() const -> decltype (array.data())
+{
+	return array.data();
+}
+
+void AddressBook::print() const
 {
 	cout<<left;
 	cout<<setw(31)<<"Maximum number of contacts"<<array.capacity()<<'\n';
@@ -127,7 +142,22 @@ void AddressBook::Print() const
 		contact->Print();
 		cout<<'\n';
 	}
+}
 
+ostream &operator<<(ostream &os, const AddressBook &addressbook)
+{
+	const auto &array=addressbook.array;
+	os<<left;
+	os<<setw(31)<<"Maximum number of contacts"<<array.capacity()<<'\n';
+	os<<setw(31)<<"Actual number of contacts"<<array.size()<<'\n';
+	os<<setw(31)<<"Pointer to array of contacts"<<array.data()<<endl;
+	os<<"Array of Contacts:"<<'\n'<<endl;
+	os<<right;
+
+	for(const auto &contact:array){
+		os<<*contact<<'\n';
+	}
+	return os;
 }
 
 AddressBook::size_type AddressBook::FindNextContact(const Contact &contact) const
@@ -154,6 +184,10 @@ AddressBook::size_type AddressBook::FindNextContact(Contact &&contact) const
 
 bool AddressBook::InsertContact(Contact &&contact, size_type insertAtIndex)
 {
+	if(insertAtIndex>array.size()){
+		return false;
+	}
+
 	if(array.size()==array.capacity()){
 		if(!ExtendArray(array.capacity()+5)){//failed
 			cerr<<unable_change<<endl;
@@ -168,6 +202,10 @@ bool AddressBook::InsertContact(Contact &&contact, size_type insertAtIndex)
 
 bool AddressBook::InsertContact(const Contact &contact, size_type insertAtIndex)
 {
+	if(insertAtIndex>array.size()){
+		return false;
+	}
+
 	if(array.size()==array.capacity()){
 		if(!ExtendArray(array.capacity()+5)){//failed
 			cerr<<unable_change<<endl;
@@ -191,6 +229,10 @@ bool AddressBook::InsertContact(const Contact &contact, size_type insertAtIndex)
 
 bool AddressBook::InsertContact(const Contact *contact, size_type insertAtIndex)
 {
+	if(insertAtIndex>array.size()){
+		return false;
+	}
+
 	if(array.size()==array.capacity()){
 		if(!ExtendArray(array.capacity()+5)){//failed
 			cerr<<unable_change<<endl;
@@ -230,8 +272,21 @@ bool AddressBook::RemoveContact(const Contact &contact)
 	}
 }
 
-AddressBook::~AddressBook()
+bool AddressBook::RemoveContact(const Contact *pcontact)
 {
+	size_type i;
+	for(i=0;i<array.size();i++){
+		if(*array[i] == *pcontact){
+			break;
+		}
+	}
+	if(i==array.size()){
+		return false;
+	}
+	else{
+		array.erase(array.begin()+i);
+		return true;
+	}
 }
 
 bool AddressBook::ExtendArray(size_type newSize)

@@ -4,11 +4,7 @@
 #include "Gasket.h"
 
 int main(){
-	Triangle t;
-	Rectangle r;
-	Gasket g;
-
-	t.Print();
-	r.Print();
-	g.Print();
+	Rectangle r1;
+	Rectangle r2(r1);
+	cout<<(r1==r2)<<endl;
 }
