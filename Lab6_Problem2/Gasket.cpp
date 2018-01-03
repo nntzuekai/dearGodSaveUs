@@ -20,9 +20,9 @@ unsigned int Gasket::gasketExisting=0;
 #define sideLength dimension1
 
 Gasket::Gasket():
-    Shape(0,0,200,Colour(0,0,0,255))
+    Shape()
 {
-	listOfSubTriangles=new Triangle[1]{{0, 0, 200, gasketColour}};
+	listOfSubTriangles=new Triangle[1]{{xLocation, yLocation, sideLength, gasketColour}};
 	lenSubTriList=1;
 
 	++gasketCreated;
@@ -86,6 +86,14 @@ unsigned int Gasket::GetIterations() const
 unsigned int Gasket::GetHeight() const
 {
 	return static_cast<unsigned int>(round(sideLength*sin60));
+}
+
+void Gasket::SetShapeColour(const Colour colorValue)
+{
+	shapeColour=colorValue;
+	for(decltype (lenSubTriList) i=0;i<lenSubTriList;i++){
+		listOfSubTriangles[i].SetShapeColour(colorValue);
+	}
 }
 
 /*
@@ -199,7 +207,7 @@ void Gasket::SetYLocation(const unsigned int yLocationValue)
 			tri.SetYLocation(tri.GetYLocation()-y0);
 		}
 	}
-	else if(xLocation!=x0){
+	else if(yLocation!=y0){
 		auto dy=yLocation-y0;
 		for(unsigned int i=0;i<lenSubTriList;i++){
 			auto &tri=listOfSubTriangles[i];
@@ -393,7 +401,7 @@ void Gasket::GasketDivide(Triangle* listOfSubTriangles, unsigned int numTriangle
 	auto l = tri.GetSideLength();
 	auto num = numTriangleToDivide / 3;
 
-	listOfSubTriangles[2 * num] = {x + l / 4, static_cast<unsigned int>(round(y + l*sin60 / 2)), l / 2, color};
+	listOfSubTriangles[2 * num] = {x + l / 4, static_cast<unsigned int>(y + l*sin60 / 2), l / 2, color};
 	listOfSubTriangles[num] = {x + l / 2, y, l / 2, color};
 	listOfSubTriangles[0] = {x, y, l / 2, color};
 

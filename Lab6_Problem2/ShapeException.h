@@ -14,6 +14,10 @@ public:
 	ShapeOffPageException(const ShapeOffPageException&)=default;
 
 	static const string info;
+	unsigned int getX0() const;
+
+	unsigned int getY0() const;
+
 private:
 
 	unsigned int x0;
@@ -28,6 +32,14 @@ public:
 	ShapeXPartOffPageException(const ShapeXPartOffPageException&)=default;
 
 	static const string info;
+	unsigned int getX0() const;
+
+	unsigned int getY0() const;
+
+	unsigned int getDimension1_0() const;
+
+	unsigned int getDimension1_1() const;
+
 private:
 	unsigned int x0;
 	unsigned int y0;
@@ -42,6 +54,18 @@ public:
 	ShapeYPartOffPageException(const ShapeYPartOffPageException&)=default;
 
 	static const string info;
+	unsigned int getX0() const;
+
+	unsigned int getY0() const;
+
+	unsigned int getDimension1_0() const;
+
+	unsigned int getHeight0() const;
+
+	unsigned int getDimension1_1() const;
+
+	unsigned int getHeight() const;
+
 private:
 
 	unsigned int x0;

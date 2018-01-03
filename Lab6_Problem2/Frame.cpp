@@ -119,6 +119,7 @@ bool Frame::RemoveShape(unsigned int deleteAtIndex, Shape *shapeToRemove)
 		return false;
 	}
 
+	delete *p;
 	shapesInPicture.erase(p);
 	return true;
 }
@@ -128,6 +129,8 @@ bool Frame::RemoveLastShape()
 	if(shapesInPicture.empty()){
 		return false;
 	}
+
+	delete shapesInPicture.back();
 	shapesInPicture.pop_back();
 	return true;
 }

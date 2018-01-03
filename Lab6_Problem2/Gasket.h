@@ -26,6 +26,7 @@ public:
 	unsigned int GetIterations() const;
 	unsigned int GetHeight() const override;
 
+	void SetShapeColour(const Colour colorValue);
 	void SetIterations(const unsigned int iterationsValue);
 	void SetXLocation(const unsigned int xLocationValue);
 	void SetYLocation(const unsigned int yLocationValue);
